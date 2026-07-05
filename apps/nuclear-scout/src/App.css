@@ -65,3 +65,34 @@ span {
   color: gray;
   font-size: 14px;
 }
+.articles {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: min(720px, 90vw);
+}
+
+.article-card {
+  text-align: left;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.article-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.article-card strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.article-card span {
+  margin-top: 0;
+  color: #8fa8d8;
+}

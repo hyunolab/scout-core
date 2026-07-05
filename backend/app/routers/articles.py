@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from app.collector.world_nuclear_news import get_latest_news
 
 router = APIRouter(
     prefix="/api/v1/articles",
@@ -8,11 +9,4 @@ router = APIRouter(
 
 @router.get("")
 def get_articles():
-
-    return [
-        {
-            "title":"Sample Nuclear News",
-            "country":"USA",
-            "technology":"SMR"
-        }
-    ]
+    return get_latest_news(limit=5)

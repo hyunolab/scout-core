@@ -1,6 +1,26 @@
+import { useState } from "react";
 import "./App.css";
 
+type Article = {
+  title: string;
+  link: string;
+  published: string;
+};
+
 function App() {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const loadArticles = async () => {
+    setLoading(true);
+
+    const response = await fetch("http://127.0.0.1:8000/api/v1/articles");
+    const data = await response.json();
+
+    setArticles(data);
+    setLoading(false);
+  };
+
   return (
     <div className="app">
       <div className="container">
@@ -16,9 +36,26 @@ function App() {
 
         <p>AI-powered Research Platform</p>
 
-        <button>Enter Scout</button>
+        <button onClick={loadArticles}>
+          {loading ? "Observing..." : "Load Latest Nuclear News"}
+        </button>
 
-        <span>Version 0.0.1 Alpha</span>
+        <div className="articles">
+          {articles.map((article, index) => (
+            <a
+              className="article-card"
+              href={article.link}
+              target="_blank"
+              rel="noreferrer"
+              key={index}
+            >
+              <strong>{article.title}</strong>
+              <span>{article.published}</span>
+            </a>
+          ))}
+        </div>
+
+        <span className="version">Version 0.0.1 Alpha</span>
       </div>
     </div>
   );
