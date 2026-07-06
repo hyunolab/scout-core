@@ -1,6 +1,8 @@
 from fastapi import APIRouter
-from app.collector.world_nuclear_news import get_latest_news
+
 from app.ai.analyzer import analyze
+from app.collector.scraper import get_article_content
+from app.collector.world_nuclear_news import get_latest_news
 
 router = APIRouter(
     prefix="/api/v1/articles",
@@ -12,14 +14,16 @@ router = APIRouter(
 def get_articles():
     articles = get_latest_news(limit=5)
 
-    analyzed_articles = []
+    results = []
 
     for article in articles:
+        content = get_article_content(article["link"])
         analysis = analyze(article["title"])
 
-        analyzed_articles.append({
+        results.append({
             **article,
+            "content_preview": content,
             "analysis": analysis
         })
 
-    return analyzed_articles
+    return results
