@@ -1,4 +1,5 @@
 from app.database.database import get_connection
+from app.database.fact_repository import ensure_facts_schema
 
 conn = get_connection()
 
@@ -23,11 +24,14 @@ CREATE TABLE IF NOT EXISTS articles (
     importance INTEGER,
 
     summary TEXT,
-    impact TEXT
+    impact TEXT,
+    event_key TEXT
 )
 """)
 
 conn.commit()
 conn.close()
+
+ensure_facts_schema()
 
 print("Database initialized.")

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import articles
+from app.routers import articles, dashboard, facts, timeline
 
 app = FastAPI(
     title="Nuclear Scout API",
@@ -16,6 +16,9 @@ app.add_middleware(
 )
 
 app.include_router(articles.router)
+app.include_router(dashboard.router)
+app.include_router(facts.router)
+app.include_router(timeline.router)
 
 
 @app.get("/")
